@@ -86,7 +86,7 @@ mount /dev/mapper/data_vg-lv_log /log
 ## Extend VG amd LV to have more space
 
 The difference is that lvextend can only increase the size of a volume, whereas lvresize can increase or reduce it. This makes lvresize more powerful but more dangerous.
-
+```
 # Check pv
 pvs
 
@@ -173,3 +173,4 @@ resize2fs /dev/data_vg/data_lv
 vgs 
 lvs 
 df -h | grep -v "tmpfs\|loop" | grep data_lv
+```
