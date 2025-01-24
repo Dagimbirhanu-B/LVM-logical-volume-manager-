@@ -10,7 +10,7 @@ LVM offers tools to create **virtual block devices** from physical devices, maki
 - **Logical Volume (LV):** A virtual block device that the system or applications can use.  
 
 Each block of data in an LV is stored on one or more PVs in the VG, with storage algorithms managed by the kernel's **Device Mapper (DM)**.
-
+![Alt Text](image/lvm.png)
 ---
 
 ## Why Do We Need LVM?
