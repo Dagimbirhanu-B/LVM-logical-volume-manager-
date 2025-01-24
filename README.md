@@ -79,8 +79,8 @@ mkfs.ext4 /dev/mapper/data_vg-lv_log
 mkdir /data /log
 mount /dev/mapper/data_vg-data_lv /data
 mount /dev/mapper/data_vg-lv_log /log
-##3.2- LVM - VG LV Extend Operation
-Extend VG amd LV to have more space
+## 3.2- LVM - VG LV Extend Operation
+## Extend VG amd LV to have more space
 
 The difference is that lvextend can only increase the size of a volume, whereas lvresize can increase or reduce it. This makes lvresize more powerful but more dangerous.
 
