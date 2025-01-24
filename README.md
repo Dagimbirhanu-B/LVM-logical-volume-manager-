@@ -79,3 +79,94 @@ mkfs.ext4 /dev/mapper/data_vg-lv_log
 mkdir /data /log
 mount /dev/mapper/data_vg-data_lv /data
 mount /dev/mapper/data_vg-lv_log /log
+##3.2- LVM - VG LV Extend Operation
+Extend VG amd LV to have more space
+
+The difference is that lvextend can only increase the size of a volume, whereas lvresize can increase or reduce it. This makes lvresize more powerful but more dangerous.
+
+# Check pv
+pvs
+
+# check the vg
+vgs 
+
+# check the lvs
+lvs 
+
+
+# check if resize_inode options is active 
+
+tune2fs -l /dev/data_vg/data_lv | grep resize_inode
+
+# check available disks 
+lvmdiskscan | grep -v loop
+lsblk | grep -v loop
+
+# create PV 
+pvcreate /dev/sdb2
+
+# Check pv
+pvs
+
+# add pv to vg
+vgextend data_vg /dev/sdb2
+
+# Check pv
+pvs
+
+# check the vg
+vgs 
+
+
+# check the mount
+mount | grep data_lv
+
+# fsck
+ fsck -N /dev/mapper/data_vg-data_lv
+
+# check current lv size 
+lvs 
+df -h | grep -v "tmpfs\|loop" | grep data_lv
+
+# extend lv using automatic way 
+lvresize --resizefs /dev/mapper/data_vg-data_lv -L +1G
+
+# check the vg
+vgs 
+
+# check the lvs
+lvs 
+
+# extend lv using manual way 
+lvextend /dev/mapper/data_vg-data_lv -L 4G
+
+# check current lv size 
+lvs 
+df -h | grep -v "tmpfs\|loop" | grep data_lv
+
+
+# resize to fs
+resize2fs /dev/data_vg/data_lv
+
+# check lvs 
+lvs 
+
+# vgs lvs 
+vgs 
+lvs 
+
+# extend and resize with full size of the VG 
+lvextend /dev/mapper/data_vg-data_lv -l +100%FREE
+
+# check 
+vgs 
+lvs 
+df -h | grep -v "tmpfs\|loop" | grep data_lv
+
+# resize to fs
+resize2fs /dev/data_vg/data_lv
+
+# check 
+vgs 
+lvs 
+df -h | grep -v "tmpfs\|loop" | grep data_lv
