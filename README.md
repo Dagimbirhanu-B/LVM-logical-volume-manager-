@@ -84,6 +84,16 @@ mkdir /data /log
 mount /dev/mapper/data_vg-data_lv /data
 mount /dev/mapper/data_vg-lv_log /log
 ```
+# Update /etc/fstab (Optional) , this is to make mount persistent on reboot
+To ensure the logical volume mounts automatically on reboot, add an entry to /etc/fstab. Open the file in an editor:
+
+```
+nano /etc/fstab
+```
+Add the following line:
+```
+/dev/data_vg/data_lv  /mnt/data  ext4  defaults  0 0
+```
 ---
 # 3.2- LVM - VG LV Extend Operation
 
