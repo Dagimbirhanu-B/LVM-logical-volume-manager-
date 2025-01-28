@@ -65,6 +65,10 @@ vgcreate data_vg /dev/sdb1 /dev/sdc1
 
 # Create Logical Volumes (LV)
 lvcreate data_vg -n data_lv -L 2G
+#if the disk is not os disk you can utlize 100% of it by the following command
+lvcreate data_vg -n data_lv -l 100%FREE
+#to delete logical volume if you create it with wrong size , you can use the follwing command, but if the logical volume is mounted you have to umount it before removing the logical volume 
+lvremove /dev/data_vg/data_lv
 
 # Format the Logical Volume
 mkfs.ext4 /dev/mapper/data_vg-data_lv
