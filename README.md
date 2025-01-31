@@ -72,6 +72,9 @@ lvremove /dev/data_vg/data_lv
 
 # Format the Logical Volume
 mkfs.ext4 /dev/mapper/data_vg-data_lv
+# if the vg name and lv name have '-' in it, you can use the following command
+mkfs.ext4 /dev/u01-vg/u01-lv
+
 
 # Create another Logical Volume using remaining space
 lvcreate data_vg -n lv_log -l 100%FREE
