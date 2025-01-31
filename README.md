@@ -72,8 +72,11 @@ lvremove /dev/data_vg/data_lv
 
 # Format the Logical Volume
 mkfs.ext4 /dev/mapper/data_vg-data_lv
+or
 # if the vg name and lv name have '-' in it, you can use the following command
 mkfs.ext4 /dev/u01-vg/u01-lv
+or
+mks.ext4 /dev/u01--vg-u01--lv
 
 
 # Create another Logical Volume using remaining space
@@ -86,6 +89,8 @@ mkfs.ext4 /dev/mapper/data_vg-lv_log
 mkdir /data /log
 mount /dev/mapper/data_vg-data_lv /data
 mount /dev/mapper/data_vg-lv_log /log
+or  if the file naming hav '-' in ti
+mount /dev/mapper/u01--vg-u01--lv /u01
 ```
 # Update /etc/fstab (Optional) , this is to make mount persistent on reboot
 To ensure the logical volume mounts automatically on reboot, add an entry to /etc/fstab. Open the file in an editor:
